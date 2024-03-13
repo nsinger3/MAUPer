@@ -1,0 +1,20 @@
+{
+  "name": "map-test-2",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "build": ""
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "fs": "^0.0.1-security",
+    "leaflet": "^1.9.3",
+    "leaflet.pattern": "https://github.com/teastman/Leaflet.pattern/tarball/ac9f69f",
+    "morgan": "~1.9.1",
+    "pg": "^8.8.0"
+  }
+}
