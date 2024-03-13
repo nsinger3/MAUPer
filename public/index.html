@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>MAUP-ER</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton@2.0.0/src/easy-button.css">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://www.unpkg.com/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
+
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-easybutton@2.0.0/src/easy-button.js"></script>
+        <script src="https://unpkg.com/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+        <script src="/leaflet.pattern-src.js"></script>
+
+    </head>
+
+    <body style="background-color: rgb(77, 77, 77);">
+
+        <!-- Bootstrap loading spinner -->
+        <div class="modal" id="loadingSpinner" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+
+            <div class="modal-dialog modal-dialog-centered">
+
+                <div class="modal-content" style="border:2px solid #9f9f9f; box-shadow: none;">
+
+                    <div class="modal-body" style="margin:15vh">
+
+                        <div id="loadingIcon" style="display:flex; align-items:center; justify-content:center; background-color: white;">
+                        
+                            <div class="spinner-border"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top-of-site navigation bar -->
+        <nav class="navbar navbar-dark bg-dark">
+
+            <div class="container-fluid">
+
+                <!-- Container for website title / subtitle -->
+                <div style="display:flex; justify-content:left;">
+
+                    <a class="navbar-brand" style="font-weight: bold; margin-right: 0px; text-decoration: underline; text-decoration-thickness: 4px; text-decoration-color: #ff4f3b;">MAUP-ER</a>
+                    <a class="navbar-brand" style="font-weight: bold; margin-right: 0px; position:relative; left:-1px; text-decoration: underline; text-decoration-thickness: 4px; color: #ff4f3b; text-decoration-color: #ff4f3b;">:</a>
+                    <a class="navbar-brand" style="float:left; color:#dadada;">&nbspan interactive mapping tool</a>
+                </div>
+
+                <!-- Hamburger button in top-of-site navigation bar -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="border-radius: 5px; border-width: 2px">
+
+                    <span class="navbar-toggler-icon">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="bi bi-patch-question-fill" viewBox="0 0 16 16" style="position:relative; left: -35px; top:-10px; transform: rotate(15deg)">
+                            <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745z" fill="#ff4f3b" stroke="#ff4f3b"/>
+                            <path d="M5.933.87a2.89 2.89 0 0 1 4.134 0l.622.638.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636zM7.002 11a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm1.602-2.027c.04-.534.198-.815.846-1.26.674-.475 1.05-1.09 1.05-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745.336 0 .504-.24.554-.627z" fill="white"/>
+                            <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0z" fill="#ff4f3b" stroke="#ff4f3b" stroke-width="1%"/>
+                          </svg>
+
+                    </span>
+                </button>
+
+                <!-- Sidebar element / content (toggled by the hamburger button above) -->
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+
+                    <div class="offcanvas-body">This is the body</div>
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Accordion Item #1
+                            </button>
+                          </h2>
+                          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              Accordion Item #2
+                            </button>
+                          </h2>
+                          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <div class="container-fluid" style="padding-top:1rem">
+        
+            <!-- Tabs are added dynamically to this element through the buildTab() function in function_definitions.js -->
+            <ul class="nav nav-tabs" id="pointTabNav"></ul>
+
+            <!-- Div which contains the Leaflet map area -->
+            <div id="mapWrapper">
+
+                <!-- This element is initialized as blank, but is populated through scripts below -->
+                <div id="map"></div>
+                <script src="javascripts/function_definitions.js"></script>
+                <script src="javascripts/webmap.js"></script>
+            </div>
+        </div>
+    
+    </body>
+
+</html>
